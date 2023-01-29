@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 function Navbar() {
   return (
+    <>
     <div className='mx-auto xl:max-w-7xl lg:max-w-4xl my-10 px-3 flex flex-row'>
         
             
@@ -14,22 +15,25 @@ function Navbar() {
             </div>
 
             {/*nav-links*/}
-            <div className='space-x-9 text-gray-500 text-sm pt-0.5'>
-                <Link href = "/">Collections</Link>
-                <Link href = "/">Men</Link>
-                <Link href = "/">Women</Link>
-                <Link href = "/">About</Link>
-                <Link href = "/">Contact</Link>
+            <div className='space-x-9 text-gray-500 text-sm pt-0.5 flex flex-row'>
+                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[5rem] after:right-[71.3em]  cursor-pointer after:duration-0 hover:after:duration-150 hover:after:w-full'>Collections</Link>
+                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[2.8rem] after:right-[66.4em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>Men</Link>
+                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[4rem] after:right-[60.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>Women</Link>
+                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[4rem] after:right-[54.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>About</Link>
+                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] after:right-[48.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-[4rem]'>Contact</Link>
             </div>
 
         
-
+  
         <div className='ml-auto flex flex-row space-x-10'>
             <BsCart3 />
            <Image src = {Avatar} alt = "ävatar" loading = "lazy" className='w-8 h-8 object-contain -mt-2' />
             
         </div>
+
     </div>
+    <hr className='mx-auto xl:max-w-7xl lg:max-w-4xl mt-0 mb-10 border border-md border-gray-6'></hr>
+    </>
   )
 }
 

@@ -2,11 +2,28 @@ import Head from 'next/head'
 import Image from 'next/image'
 import logo from "../images/logo.svg"
 import Navbar from '@/components/Navbar'
+import mainImage from "../images/image-product-3.jpg"
+import { useState } from 'react'
 
 
 
 export default function Home() {
-  return (
+  const [qty , setQty] = useState(0)
+
+  const increment  = () => { 
+  
+        setQty(prevQty => prevQty + 1)
+      
+  }
+
+  const decrement = () => {
+  if(qty > 0 ) {
+    setQty(prevQty => prevQty - 1)
+  }
+  else setQty(0)
+    
+}
+   return (
     <>
       <Head>
         <title>Create Next App</title>
@@ -17,6 +34,59 @@ export default function Home() {
 
       <div>
         <Navbar />
+      </div>
+
+      <div className='max-w-5xl mx-auto p-10 flex flex-row items-start space-x-2 '>
+
+        {/*main image*/}
+        <div className = "w-1/2">
+          <Image src = {mainImage} alt = "product image" className='rounded-xl object-fit max-w-[82%] h-[27rem] -mt-5' />
+        </div>
+
+        {/*accompanying text*/}
+        <div className='p-5 w-1/2'>
+
+          <h2 className='tracking-widest inline font-extrabold text-sm text-orange-400'>SNEAKERS.NG</h2>
+          <h2 className='font-bold text-5xl capitalize text-slate-900 mt-4 mb-8'>Fall limited edition Sneakers</h2>
+          <p className='text-gray-500 text-sm leading-normal'>These low profile sneakers are your perfect casual wear companion . Featuring a durable rubber outer sole, they will withstand everything from cold to wear and tear. An essential if you ask us.</p>
+            {/*price and promo */}
+            <div className='flex flex-wrap space-x-4'>
+                <p className='font-bold text-2xl mt-4'>$125.00</p>
+                <div className='bg-amber-200/50 h-5 mt-6 rounded-md mr-7 px-2 py-0 animate-pulse'>
+                  <p className='text-sm text-orange-500 font-extrabold mx-auto'>50%</p>
+                </div>
+            </div>
+          <p className='line-through text-sm text-gray-300 font-bold mt-2'>$250.00</p>
+          
+          {/*cart quantity button*/}
+          <div className="inline-flex rounded-md bg-gray-100 shadow-sm mt-3" role="group">
+            
+            <button type="button" onClick={decrement} className="inline-flex items-center px-4 py-2 text-sm font-medium text-orange-400 bg-gray-100 border border-gray-100 rounded-l-lg hover:bg-orange-500 hover:text-black focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+              <svg aria-hidden="true" className="w-6 h-6 pt-2.5 fill-current" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z" id="a" clip-rule="evenodd"></path></svg>
+            </button>
+
+            <button type="button"  
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100 border-t border-b border-gray-100 hover:bg-gray-100 hover:text-blue-700 focus:z-10  focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+              <p className='font-bold '>{qty}</p>
+            </button>
+
+            <button type="button" onClick={increment} className="inline-flex items-center px-4 py-2 text-sm font-medium text-orange-400 bg-gray-100 border border-gray-100 rounded-r-md hover:bg-orange-500 hover:text-black focus:z-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+              <svg aria-hidden="true" className="w-6 h-6 ml-2 pt-1 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z" id="b" clip-rule="evenodd"></path></svg>
+            </button>
+          </div>
+
+          {
+              qty > 5 ? <div className='mt-5'>
+                <p className='text-sm font-bold text-red-500'>We may not be able to process more than 5 items of this product at once , please reduce the quantity in order to get your package sooner</p>
+              </div> : ''
+            }
+          <div>
+
+          </div>
+          
+        </div>
+
+
       </div>
     </>
   )
