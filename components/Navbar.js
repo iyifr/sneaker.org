@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import {BsCart3} from "react-icons/bs"
 import Avatar from '../images/image-avatar.png'
+import thumbnail from '../images/image-product-2-thumbnail.jpg'
 import Image from 'next/image'
 
 function Navbar() {
+    const [open , setOpen] = useState(false)
+    const handleOpen = () => {
+        setOpen(!open) ;
+        
+    };
+
+    const [cartPrev , setCartPrev] = useState(false)
+    const handleCartPrevOpen = ()=> {
+        setCartPrev(!cartPrev)
+    }
+
   return (
     <>
     <div className='mx-auto xl:max-w-7xl lg:max-w-4xl my-10 px-3 flex flex-row'>
@@ -16,23 +28,63 @@ function Navbar() {
 
             {/*nav-links*/}
             <div className='space-x-9 text-gray-500 text-sm pt-0.5 flex flex-row'>
-                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[5rem] after:right-[71.3em]  cursor-pointer after:duration-0 hover:after:duration-150 hover:after:w-full'>Collections</Link>
-                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[2.8rem] after:right-[66.4em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>Men</Link>
-                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[4rem] after:right-[60.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>Women</Link>
-                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] hover:after:w-[4rem] after:right-[54.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-full'>About</Link>
-                <Link href = "/" className='after:w-0 after:h-[2px] after:bg-orange-500 after:absolute after:top-[7.3em] after:right-[48.5em]  cursor-pointer after:duration-0 hover:after:duration-500 hover:after:w-[4rem]'>Contact</Link>
+                <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black'>Collections</Link>
+                <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black '>Men</Link>
+                <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black'>Women</Link>
+                <Link href = "/" className='cursor-pointer hover:tracking-wide hover:text-black'>About</Link>
+                <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black'>Contact</Link>
             </div>
 
         
   
         <div className='ml-auto flex flex-row space-x-10'>
-            <BsCart3 />
-           <Image src = {Avatar} alt = "ävatar" loading = "lazy" className='w-8 h-8 object-contain -mt-2' />
-            
+            <button onClick={handleCartPrevOpen}>
+                <BsCart3 className='hover:text-green-500 '/>
+            </button>
+
+        {
+            cartPrev  ? <div className='w-64 bg-white absolute right-32 mt-8 border border-sm border-grey-200 rounded-lg p-4 shadow-xl'>
+                   <div className='text-black text-sm font-bold '>Cart</div> 
+                   <hr className='w-full my-2'></hr>
+                   <div className='flex'>
+                        <div className='w-1/6'><Image src = {thumbnail} className='w-8 h-8 mb-2 rounded object-fit inline' alt = 'thumbnail for cart product' /> </div>
+                   <div className='w-5/6 ml-2 '><p className='text-xs capitalize text-gray-500'>Fall limited edition sneakers</p>
+                   <p className=' text-xs inline font-thin'>$125.00 x 3</p> - <p className='font-bold inline text-xs text-black'>$375.00</p> </div>
+                   </div>
+                    <button className='bg-orange-500 p-2 w-56 h-10 hover:bg-zinc-900 hover:text-orange-500 duration-150 text-sm text-white font-bold mt-2 rounded-md'>Checkout</button>
+                   
+            </div>
+       : ''}
+            <button onClick={handleOpen}>
+                <Image id="avatarButton" type = "button" data-dropdown-toggle = "userDropdown" data-dropdown-placement = 'bottom-start' src = {Avatar} alt = "ävatar" loading = "lazy" className='rounded-full w-8 h-8 hover:ring-2 hover:ring-orange-500 p-0.5 cursor-pointer object-contain'  />
+            </button>
+           
+           {/*Dropdown menu */} 
+         { open ? <div id="userDropdown" className='z-100 absolute mt-8 right-16 bg-white divide-y divide-gray-100 rounded-lg shadow w-56 '>
+            <div className='px-4 py-3 text-sm text-gray-900'>
+                <p>Adekile Iyimide</p>
+                <p className='text-gray-300 text-xs font-thin'>iyifr@gmail.com</p>
+            </div>
+            <ul className='py-2 text-sm text-gray-700' aria-labelledby='avatarButton'>
+                <li>
+                    <a href='#' className='block px-4 py-2 hover:bg-gray-100 '>Profile</a>
+                </li>
+                <li>
+                    <a href='#' className='block px-4 py-2 hover:bg-gray-100 '>Orders</a>
+                </li>
+                <li>
+                    <a href='#' className='block px-4 py-2 hover:bg-gray-100 '>Purchases</a>
+                </li>
+            </ul>
+            <div>
+                <a href='#' className='block px-4 py-2 text-sm text-gray-700 hover:bg-orange-300'>Log out</a>
+            </div>
+
+           </div>  : "" }
         </div>
 
     </div>
-    <hr className='mx-auto xl:max-w-7xl lg:max-w-4xl mt-0 mb-10 border border-md border-gray-6'></hr>
+   
     </>
   )
 }
