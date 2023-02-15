@@ -19,7 +19,7 @@ function Navbar() {
 
   return (
     <>
-    <div className='mx-auto xl:max-w-7xl lg:max-w-4xl my-10 px-3 flex flex-row'>
+    <div className='mx-auto xl:max-w-7xl lg:max-w-4xl mt-10 mb-8 px-3 flex flex-row'>
         
             
             <div className='xl:mr-24 lg:mr-12'>
@@ -27,7 +27,7 @@ function Navbar() {
             </div>
 
             {/*nav-links*/}
-            <div className='space-x-9 text-gray-500 text-sm pt-0.5 flex flex-row'>
+            <div className='space-x-9 text-gray-500 text-base pt-0.5 flex flex-row'>
                 <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black'>Collections</Link>
                 <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black '>Men</Link>
                 <Link href = "/" className='cursor-pointer hover:leading-wide hover:text-black'>Women</Link>
@@ -84,7 +84,7 @@ function Navbar() {
         </div>
 
     </div>
-   
+   <hr className='mx-auto border-slate-400 max-w-7xl mb-2 '></hr>
     </>
   )
 }

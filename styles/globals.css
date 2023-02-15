@@ -7,3 +7,20 @@
     font-family: "Kumbh Sans" , sans-serif;
   }
 }
+
+#lightbox {
+  z-index: 1040;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  /*optional bg color*/
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  /*the following isn't necessary but will help center everything once we add buttons*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

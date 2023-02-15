@@ -12,26 +12,75 @@ import image4 from "../images/image-product-4.jpg";
 import thumb4 from '../images/image-product-4-thumbnail.jpg'
 import { useState } from 'react'
 import {BsCart3} from "react-icons/bs"
+import {GrNext , GrPrevious} from 'react-icons/gr'
+import LightGallery from 'lightgallery/react'
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+
  
 
 
 
 export default function Home() {
-  
+  const images = [mainImage, image2, image3, image4 ]
+  const thumbs = [thumb1, thumb2, thumb3, thumb4]
+
+ //Cart quantity UI state 
   const [qty , setQty] = useState(0) ;
 
-  const increment  = () => { 
-  
-        setQty(prevQty => prevQty + 1)
-      
+  const increment  = () => {
+    setQty(prevQty => prevQty + 1)
   }
 
   const decrement = () => {
-  if(qty > 0 ) {
-    setQty(prevQty => prevQty - 1)
-  }
-  else setQty(0)
+    if(qty > 0 ) {
+      setQty(prevQty => prevQty - 1)
+    }
+    else setQty(0)
+}
 
+
+//LightBox state
+
+  const [lightboxOpen , setLightboxOpen] = useState(false)
+  const [imageToShow, setImageToShow] = useState("")
+
+  const showImage = (index) => {
+    //set imageToShow to be the one that's been clicked on   
+    setImageToShow(images[index]);
+    //set lightbox visibility to true
+    setLightboxOpen(true);
+};
+
+const hideLightBox = () => {
+   setLightboxOpen(false)
+}
+
+const showNext = (e) => {
+  e.stopPropagation();
+  let currentIndex = images.indexOf(imageToShow)
+   if(currentIndex >= images.length - 1) {
+    setLightboxOpen(false)
+  }
+  else {
+    let nextImage = images[currentIndex + 1]
+    setImageToShow(nextImage)
+}
+}
+
+const showPrev = (e) => {
+  e.stopPropagation()
+  let currentIndex = images.indexOf(imageToShow)
+    if(currentIndex <= 0) {
+    setLightboxOpen(false)
+  }
+  else {
+    let nextImage = images[currentIndex - 1]
+    setImageToShow(nextImage)
+  }
 }
 
 
@@ -55,10 +104,26 @@ export default function Home() {
         <div className = "w-1/2">
           <Image src = {mainImage} alt = "product image" className='rounded-xl object-fit max-w-[80%] h-[25rem] -mt-10' />
            <div className=" flex flex-wrap space-x-5 mt-6 place-items-center pl-6">
-             <Image src = {thumb1} alt = "product image" className='rounded-lg object-fit max-w-[15%] h-auto cursor-pointer hover:ring hover:ring-orange-500' />
-             <Image src = {image2} alt = "product image" className='rounded-lg object-fit max-w-[15%] h-auto cursor-pointer hover:ring hover:ring-orange-500' />
-             <Image src = {image3} alt = "product image" className='rounded-lg object-fit max-w-[15%] h-auto cursor-pointer hover:ring hover:ring-orange-500 ' />
-             <Image src = {image4} alt = "product image" className='rounded-lg object-fit max-w-[15%] h-auto cursor-pointer hover:ring hover:ring-orange-500 ' />
+            {
+              thumbs.map(thumb => (
+                <Image src = {thumb} key = {thumb} alt = "product image"  onClick = {() => showImage(thumbs.indexOf(thumb))}
+                className='rounded-lg object-fit max-w-[15%] h-auto cursor-pointer hover:ring hover:ring-orange-500' />
+                ))
+                
+            }
+
+              { lightboxOpen?
+            <div id="lightbox" onClick={hideLightBox}>
+                        
+            <button onClick={showPrev} className = 'relative left-72 '>
+            <GrPrevious className='text-2xl' /></button>
+            <Image id="lightbox-img" src={imageToShow} alt = "images" className='rounded-xl h-[35rem] max-w-[40%] object-fit shadow-2xl shadow-black'/>
+            <button onClick={showNext} className= 'relative right-72 '> 
+            <GrNext className='text-2xl'/> </button>
+              
+            </div>
+          : '' }
+        
            </div> 
         </div>
 
